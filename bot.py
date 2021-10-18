@@ -1,7 +1,7 @@
 import telebot
 from telebot.types import ChatMemberMember, User;
 from telebot import types;
-bot = telebot.TeleBot('');
+bot = telebot.TeleBot('2034192087:AAExqyUVE5bcIs7yh1uo-4yTIg152NWQcIU')
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
