@@ -99,16 +99,18 @@ def get_text_messages(message):
             bot.send_message(message.chat.id, "[%s](tg://user?id=%s) пристрелил [%s](tg://user?id=%s) %s" % (message.from_user.first_name, message.from_user.id, message.reply_to_message.from_user.first_name, message.reply_to_message.from_user.id, message.text.lower()[12:]),parse_mode="Markdown")
         elif message.text.lower()[:8] == "накурить":
             bot.send_message(message.chat.id, "[%s](tg://user?id=%s) накурил [%s](tg://user?id=%s) %s" % (message.from_user.first_name, message.from_user.id, message.reply_to_message.from_user.first_name, message.reply_to_message.from_user.id, message.text.lower()[9:]),parse_mode="Markdown")
-        elif message.text.lower()[:5] == "засосать":
-            bot.send_message(message.chat.id, "[%s](tg://user?id=%s) засосался с [%s](tg://user?id=%s) %s" % (message.from_user.first_name, message.from_user.id, message.reply_to_message.from_user.first_name, message.reply_to_message.from_user.id, message.text.lower()[6:]),parse_mode="Markdown")
+        elif message.text.lower()[:8] == "засосать":
+            bot.send_message(message.chat.id, "[%s](tg://user?id=%s) засосался с [%s](tg://user?id=%s) %s" % (message.from_user.first_name, message.from_user.id, message.reply_to_message.from_user.first_name, message.reply_to_message.from_user.id, message.text.lower()[9:]),parse_mode="Markdown")
+        elif message.text.lower()[:9] == "погладить":
+            bot.send_message(message.chat.id, "[%s](tg://user?id=%s) погладил [%s](tg://user?id=%s) %s" % (message.from_user.first_name, message.from_user.id, message.reply_to_message.from_user.first_name, message.reply_to_message.from_user.id, message.text.lower()[10:]),parse_mode="Markdown")
     else:
         if message.text.lower() == "команды":
-            bot.send_message(message.chat.id, "Вот список моих команд:\nобнять;\nкусь (alt кусьнуть);\nпоцеловать (alt цом, цмок);\nлизнуть (alt лизь);\nукусить;\nпокормить;\nприжать;\nнапоить (alt споить);\nуложить спать;\nсжечь;\nударить;\nсвязать;\nпрыгнуть;\nвзять;\nсъесть;\nкинуть;\nзапереть;\nшлёпнуть;\nотсосать;\nтрахнуть;\nвыебать;\nотлизать;\nповесить;\nбупнуть (atl boop, смайлы пальцев);\nзаняшить;\nприжаться;\nположить;\nвпитать;\nвылизать;\nрасплавить;\nсесть.")
+            bot.send_message(message.chat.id, "Вот список моих команд:\nобнять;\nкусь (alt кусьнуть);\nпоцеловать (alt цом, цмок);\nлизнуть (alt лизь);\nукусить;\nпокормить;\nприжать;\nнапоить (alt споить);\nуложить спать;\nсжечь;\nударить;\nсвязать;\nпрыгнуть;\nвзять;\nсъесть;\nкинуть;\nзапереть;\nшлёпнуть;\nотсосать;\nтрахнуть;\nвыебать;\nотлизать;\nповесить;\nбупнуть (atl boop, смайлы пальцев);\nзаняшить;\nприжаться;\nположить;\nвпитать;\nвылизать;\nрасплавить;\nсесть;\nуебать;\nвъебать;\nвыебать;\nпристрелить;\nнакурить;\nзасосать;\nпогладить;\nскажи число.")
         elif message.text == "/help":
             bot.send_message(message.chat.id, "Используй *команды* чтобы узнать список команд.")
         elif message.text.lower() == "скажи число":
             n = random.randint(0, 100)
-            bot.send_message(message.chat.id, "Вот моё число: ",n)
+            bot.send_message(message.chat.id, "Вот моё число: %d" % (n))
     
 
 
