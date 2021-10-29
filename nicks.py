@@ -1,1 +1,1 @@
-nicks{}
+nicks={}
