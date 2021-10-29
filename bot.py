@@ -10,9 +10,9 @@ nicks={}
 def get_text_messages(message):
     if message.reply_to_message!=None:
         if message.text != '':
-            if message.from_user.first_name in nicks:
+            if message.from_user.first_name in nicks.keys():
                 nicks[message.from_user.first_name]=nicks[message.from_user.first_name]
-                if message.reply_to_message.from_user.first_name in nicks:
+                if message.reply_to_message.from_user.first_name in nicks.keys():
                     nicks[message.reply_to_message.from_user.first_name]=nicks[message.reply_to_message.from_user.first_name]
                 else:
                     nicks[message.reply_to_message.from_user.first_name]=message.reply_to_message.from_user.first_name
