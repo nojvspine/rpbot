@@ -20,13 +20,13 @@ def nick(message):
             nicks.nicks[message.chat.id][message.from_user.first_name]=nicks.nicks[message.chat.id][message.from_user.first_name]
             break
     else:
-        nicks.nicks[message.from_user.first_name]=message.from_user.first_name
+        nicks.nicks[message.chat.id][message.from_user.first_name]=message.from_user.first_name
     for key in nicks.nicks[message.chat.id].keys():
         if message.reply_to_message.from_user.first_name == key:
-            nicks.nicks[message.reply_to_message.from_user.first_name]=nicks.nicks[message.reply_to_message.from_user.first_name]
+            nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name]=nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name]
             break
     else:
-        nicks.nicks[message.reply_to_message.from_user.first_name]=message.reply_to_message.from_user.first_name
+        nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name]=message.reply_to_message.from_user.first_name
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
