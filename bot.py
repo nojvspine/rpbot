@@ -6,6 +6,12 @@ import random
 bot = telebot.TeleBot('2034192087:AAExqyUVE5bcIs7yh1uo-4yTIg152NWQcIU');
 
 def nick(message):
+    for key in nicks.nicks.keys():
+        if message.chat.id == key:
+            nicks.nicks=nicks.nicks
+            break
+    else:
+        nicks.nicks[message.chat.id]={}
     for key in nicks.nicks[message.chat.id].keys():
         if message.from_user.first_name == key:
             nicks.nicks[message.chat.id][message.from_user.first_name]=nicks.nicks[message.chat.id][message.from_user.first_name]
