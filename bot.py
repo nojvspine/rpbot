@@ -3,7 +3,7 @@ import nicks
 from telebot.types import ChatMemberMember, User;
 from telebot import types;
 import random
-bot = telebot.TeleBot('');
+bot = telebot.TeleBot('2034192087:AAExqyUVE5bcIs7yh1uo-4yTIg152NWQcIU');
 
 def nick(message):
     for key in nicks.nicks.keys():
@@ -173,7 +173,7 @@ def get_text_messages(message):
             bot.send_message(message.chat.id, "Используй *команды* чтобы узнать список команд.")
         elif message.text.lower() == "скажи число":
             n = random.randint(0, 100)
-            bot.send_message(message.chat.id, "Вот моё число: ",n)
+            bot.send_message(message.chat.id, "Вот моё число: %i" % n)
         elif message.text[:6] == "рп ник":
             nicks.nicks[message.from_user.first_name]=message.text[7:]
             bot.send_message(message.chat.id, "%s теперь имеет ник %s" % (message.from_user.first_name, nicks.nicks[message.from_user.first_name]))
