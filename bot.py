@@ -177,7 +177,7 @@ def get_text_messages(message):
             bot.send_message(message.chat.id, "[%s](tg://user?id=%s) погладил [%s](tg://user?id=%s) %s" % (nicks.nicks[message.chat.id][message.from_user.first_name], message.from_user.id, nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name], message.reply_to_message.from_user.id, message.text.lower()[10:]),parse_mode="Markdown")
     else:
         if message.text.lower() == "команды":
-            bot.send_message(message.chat.id, "Вот список моих команд:\nобнять;\nкусь (alt кусьнуть);\nпоцеловать (alt цом, цмок);\nлизнуть (alt лизь);\nукусить;\nпокормить;\nприжать;\nнапоить (alt споить);\nуложить спать;\nсжечь;\nударить;\nсвязать;\nпрыгнуть;\nвзять;\nсъесть;\nкинуть;\nзапереть;\nшлёпнуть;\nотсосать;\nтрахнуть;\nвыебать;\nотлизать;\nповесить;\nбупнуть (atl boop, смайлы пальцев);\nзаняшить;\nприжаться;\nположить;\nвпитать;\nвылизать;\nрасплавить;\nсесть;\nуебать;\nвъебать;\nвыебать;\nпристрелить;\nнакурить;\nзасосать;\nпогладить;\nскажи число;\nрп ник <ваш ник>.")
+            bot.send_message(message.chat.id, "Вот список моих команд:\nобнять;\nкусь (alt кусьнуть);\nпоцеловать (alt цом, цмок);\nлизнуть (alt лизь);\nукусить;\nпокормить;\nприжать;\nнапоить (alt споить);\nуложить спать;\nсжечь;\nударить;\nсвязать;\nпрыгнуть;\nвзять;\nсъесть;\nкинуть;\nзапереть;\nшлёпнуть;\nотсосать;\nтрахнуть;\nвыебать;\nотлизать;\nповесить;\nбупнуть (atl boop, смайлы пальцев);\nзаняшить;\nприжаться;\nположить;\nвпитать;\nвылизать;\nрасплавить;\nсесть;\nуебать;\nвъебать;\nвыебать;\nпристрелить;\nнакурить;\nзасосать;\nпогладить;\nскажи число;\nрп ник <ваш ник>;\nники рп.")
         elif message.text == "/help":
             bot.send_message(message.chat.id, "Используй *команды* чтобы узнать список команд.")
         elif message.text.lower() == "скажи число":
@@ -185,9 +185,12 @@ def get_text_messages(message):
             bot.send_message(message.chat.id, "Вот моё число: ",n)
         elif message.text[:6] == "рп ник" or message.text[:6] == "Рп ник":
             chatnick(message)
-            n={message.from_user.first_name: message.text[7:]}
-            nicks.nicks[message.chat.id].update(n)
-            bot.send_message(message.chat.id, "%s теперь имеет ник %s" % (message.from_user.first_name, nicks.nicks[message.chat.id][message.from_user.first_name]))
+            if message.text[6:]==' ' or message.text[6:]=='':
+                bot.send_message(message.chat.id, "Вы не ввели ник!")
+            else:
+                n={message.from_user.first_name: message.text[7:]}
+                nicks.nicks[message.chat.id].update(n)
+                bot.send_message(message.chat.id, "%s теперь имеет ник %s" % (message.from_user.first_name, nicks.nicks[message.chat.id][message.from_user.first_name]))
         elif message.text.lower() == "ники рп":
             chatnick(message)
             bot.send_message(message.chat.id, "Вот ники участников чата: "+str(nicks.nicks[message.chat.id]))
