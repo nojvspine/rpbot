@@ -11,6 +11,10 @@ def get_text_messages(message):
     if message.reply_to_message!=None:
         if message.from_user.first_name in nicks:
             nicks[message.from_user.first_name]=nicks[message.from_user.first_name]
+            if message.reply_to_message.from_user.first_name in nicks:
+                nicks[message.from_user.first_name]=nicks[message.from_user.first_name]
+            else:
+                nicks[message.from_user.first_name]=message.from_user.first_name
         else:
             nicks[message.from_user.first_name]=message.from_user.first_name
         if message.text.lower()[:6] == "обнять":
