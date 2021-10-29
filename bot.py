@@ -7,17 +7,17 @@ bot = telebot.TeleBot('2034192087:AAExqyUVE5bcIs7yh1uo-4yTIg152NWQcIU');
 nicks={}
 def nick(message):
     for key in nick.keys():
-        if message.from_user.first_name != key:
-            nicks[message.from_user.first_name]=message.from_user.first_name
-        else:
+        if message.from_user.first_name == key:
             nicks[message.from_user.first_name]=nicks[message.from_user.first_name]
             break
+    else:
+        nicks[message.from_user.first_name]=message.from_user.first_name
     for key in nick.keys():
-        if message.reply_to_message.from_user.first_name != key:
-            nicks[message.reply_to_message.from_user.first_name]=message.reply_to_message.from_user.first_name
-        else:
+        if message.reply_to_message.from_user.first_name == key:
             nicks[message.reply_to_message.from_user.first_name]=nicks[message.reply_to_message.from_user.first_name]
             break
+    else:
+        nicks[message.reply_to_message.from_user.first_name]=message.reply_to_message.from_user.first_name
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
