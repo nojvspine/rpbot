@@ -9,14 +9,15 @@ nicks={}
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
     if message.reply_to_message!=None:
-        if message.from_user.first_name in nicks:
-            nicks[message.from_user.first_name]=nicks[message.from_user.first_name]
-            if message.reply_to_message.from_user.first_name in nicks:
+        if message.text != '':
+            if message.from_user.first_name in nicks:
                 nicks[message.from_user.first_name]=nicks[message.from_user.first_name]
+                if message.reply_to_message.from_user.first_name in nicks:
+                    nicks[message.from_user.first_name]=nicks[message.from_user.first_name]
+                else:
+                    nicks[message.from_user.first_name]=message.from_user.first_name
             else:
                 nicks[message.from_user.first_name]=message.from_user.first_name
-        else:
-            nicks[message.from_user.first_name]=message.from_user.first_name
         if message.text.lower()[:6] == "обнять":
             bot.send_message(message.chat.id, "[%s](tg://user?id=%s) обнял [%s](tg://user?id=%s) %s" % (nicks[message.from_user.first_name], message.from_user.id, nicks[message.reply_to_message.from_user.first_name], message.reply_to_message.from_user.id, message.text.lower()[7:]),parse_mode="Markdown")
         elif message.text.lower()[:4] == "кусь":
@@ -123,5 +124,6 @@ def get_text_messages(message):
             bot.send_message(message.chat.id, "Вот моё число: ",n)
         elif message.text[:6] == "рп ник":
             nicks[message.from_user.first_name]=message.text[7:]
+            bot.send_message(message.chat.id, "%s теперь имеет ник %s" % (message.from_user.first_name, nicks[message.from_user.first_name]))
 
 bot.polling(none_stop=True, interval=0)
