@@ -181,6 +181,7 @@ def get_text_messages(message):
             n = random.randint(0, 100)
             bot.send_message(message.chat.id, "Вот моё число: ",n)
         elif message.text[:6] == "рп ник" or message.text[:6] == "Рп ник":
+            nick(message)
             n={message.from_user.first_name: message.text[7:]}
             nicks.nicks[message.chat.id].update(n)
             bot.send_message(message.chat.id, "%s теперь имеет ник %s" % (message.from_user.first_name, nicks.nicks[message.chat.id][message.from_user.first_name]))
