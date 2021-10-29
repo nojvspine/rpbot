@@ -6,13 +6,13 @@ import random
 bot = telebot.TeleBot('2034192087:AAExqyUVE5bcIs7yh1uo-4yTIg152NWQcIU');
 
 def nick(message):
-    for key in nicks.nickskeys():
+    for key in nicks.nicks.keys():
         if message.from_user.first_name == key:
             nicks.nicks[message.from_user.first_name]=nicks.nicks[message.from_user.first_name]
             break
     else:
         nicks.nicks[message.from_user.first_name]=message.from_user.first_name
-    for key in nicks.nickskeys():
+    for key in nicks.nicks.keys():
         if message.reply_to_message.from_user.first_name == key:
             nicks.nicks[message.reply_to_message.from_user.first_name]=nicks.nicks[message.reply_to_message.from_user.first_name]
             break
