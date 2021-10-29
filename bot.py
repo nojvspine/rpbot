@@ -178,6 +178,6 @@ def get_text_messages(message):
             nicks.nicks[message.from_user.first_name]=message.text[7:]
             bot.send_message(message.chat.id, "%s теперь имеет ник %s" % (message.from_user.first_name, nicks.nicks[message.from_user.first_name]))
         elif message.text.lower() == "ники рп":
-            bot.send_message(message.chat.id, "Вот ники участников чата: "+nicks.nicks)
+            bot.send_message(message.chat.id, "Вот ники участников чата: "+str(nicks.nicks))
 
 bot.polling(none_stop=True, interval=0)
