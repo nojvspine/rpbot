@@ -6,13 +6,13 @@ bot = telebot.TeleBot('2034192087:AAExqyUVE5bcIs7yh1uo-4yTIg152NWQcIU');
 
 nicks={}
 def nick(message):
-    for key in nick.keys():
+    for key in nicks.keys():
         if message.from_user.first_name != key:
             nicks[message.from_user.first_name]=message.from_user.first_name
         else:
             nicks[message.from_user.first_name]=nicks[message.from_user.first_name]
             break
-    for key in nick.keys():
+    for key in nicks.keys():
         if message.reply_to_message.from_user.first_name != key:
             nicks[message.reply_to_message.from_user.first_name]=message.reply_to_message.from_user.first_name
         else:
