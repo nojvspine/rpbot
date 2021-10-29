@@ -3,7 +3,7 @@ import nicks
 from telebot.types import ChatMemberMember, User;
 from telebot import types;
 import random
-bot = telebot.TeleBot('');
+bot = telebot.TeleBot('2034192087:AAExqyUVE5bcls7yh1u0-4yTlg152NWQclU');
 
 def nick(message):
     for key in nicks.nicks.keys():
@@ -174,8 +174,10 @@ def get_text_messages(message):
         elif message.text.lower() == "скажи число":
             n = random.randint(0, 100)
             bot.send_message(message.chat.id, "Вот моё число: %i" % n)
-        elif message.text[:6] == "рп ник":
+        elif message.text[:6] == "рп ник" or message.text[:6] == "Рп ник":
             nicks.nicks[message.from_user.first_name]=message.text[7:]
             bot.send_message(message.chat.id, "%s теперь имеет ник %s" % (message.from_user.first_name, nicks.nicks[message.from_user.first_name]))
+        elif message.text.lower() == "рп ники":
+            bot.send_message(message.chat.id, "Вот ники участников чата: ", nicks.nicks)
 
 bot.polling(none_stop=True, interval=0)
