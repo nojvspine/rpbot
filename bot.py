@@ -18,7 +18,7 @@ def nick(message):
             break
     else:
         nicks.nicks[message.from_user.first_name]=message.from_user.first_name
-    for key in nicks.nickskeys():
+    for key in nicks.nicks[message.chat.id].keys():
         if message.reply_to_message.from_user.first_name == key:
             nicks.nicks[message.reply_to_message.from_user.first_name]=nicks.nicks[message.reply_to_message.from_user.first_name]
             break
