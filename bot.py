@@ -5,13 +5,16 @@ from telebot import types;
 import random
 bot = telebot.TeleBot('2034192087:AAExqyUVE5bcIs7yh1uo-4yTIg152NWQcIU');
 
-def nick(message):
+def chatnick(message):
     for key in nicks.nicks.keys():
         if message.chat.id == key:
             nicks.nicks=nicks.nicks
             break
     else:
         nicks.nicks[message.chat.id]={}
+
+def nick(message):
+    chatnick(message)
     for key in nicks.nicks[message.chat.id].keys():
         if message.from_user.first_name == key:
             nicks.nicks[message.chat.id][message.from_user.first_name]=nicks.nicks[message.chat.id][message.from_user.first_name]
@@ -181,11 +184,12 @@ def get_text_messages(message):
             n = random.randint(0, 100)
             bot.send_message(message.chat.id, "Вот моё число: ",n)
         elif message.text[:6] == "рп ник" or message.text[:6] == "Рп ник":
-            nick(message)
+            chatnick(message)
             n={message.from_user.first_name: message.text[7:]}
             nicks.nicks[message.chat.id].update(n)
             bot.send_message(message.chat.id, "%s теперь имеет ник %s" % (message.from_user.first_name, nicks.nicks[message.chat.id][message.from_user.first_name]))
         elif message.text.lower() == "ники рп":
+            chatnick(message)
             bot.send_message(message.chat.id, "Вот ники участников чата: "+str(nicks.nicks[message.chat.id]))
 
 bot.polling(none_stop=True, interval=0)
