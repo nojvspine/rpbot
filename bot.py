@@ -4,7 +4,7 @@ import nicks
 from telebot.types import ChatMemberMember, User;
 from telebot import types;
 import random
-bot = telebot.TeleBot('');
+bot = telebot.TeleBot('2071410162:AAEBi0TeppPrzRA8vanFyCCv_V1J7VrK6hE');
 
 def chatnick(message):
     for key in nicks.nicks.keys():
@@ -182,8 +182,8 @@ def get_text_messages(message):
             lover = (message.from_user.first_name, message.from_user.id)
             nicks.brak=(love, lover)
             markup = telebot.types.InlineKeyboardMarkup()
-            markup.add(telebot.types.InlineKeyboardButton(text='Да', callback_data=True))
-            markup.add(telebot.types.InlineKeyboardButton(text='Нет', callback_data=False))
+            markup.add(telebot.types.InlineKeyboardButton(text='Да', callback_data=1))
+            markup.add(telebot.types.InlineKeyboardButton(text='Нет', callback_data=0))
             bot.send_message(message.chat.id, "[%s](tg://user?id=%s), минуточку внимания. [%s](tg://user?id=%s) сделал вам предложение руки и сердца. Нажмите да/нет чтобы принять/отказаться от предложения." % (love[0], love[1], lover[0], love[1]), parse_mode="Markdown", reply_markup=markup)
     else:
         if message.text.lower() == "команды":
@@ -209,13 +209,13 @@ def get_text_messages(message):
 def query_handler(call):
     tm=time()
     while tm+100>time():
-        if call.data == True:
+        if call.data == '1':
             brak = (nicks.nicks[call.message.chat.id][nicks.brak[1][0]], nicks.nicks[call.message.chat.id][nicks.brak[0][0]])
             nicks.braki.append(brak)
             bot.send_message(call.message.chat.id, "Теперь %s и %s состоят в счастливом браке!" % (nicks.nicks[call.message.chat.id][nicks.brak[1][0]], nicks.nicks[call.message.chat.id][nicks.brak[0][0]]))
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
             break
-        elif call.data == '4':
+        elif call.data == '0':
             bot.send_message(call.message.chat.id, "[%s](tg://user?id=%s), сожалеем, но ваши чувства не были взаимны." % (nicks.brak[1][0], nicks.brak[1][1]), parse_mode="Markdown")
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
             break
