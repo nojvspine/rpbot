@@ -4,7 +4,7 @@ import nicks
 from telebot.types import ChatMemberMember, User;
 from telebot import types;
 import random
-bot = telebot.TeleBot('');
+bot = telebot.TeleBot('2071410162:AAEBi0TeppPrzRA8vanFyCCv_V1J7VrK6hE');
 
 def chatnick(message):
     for key in nicks.nicks.keys():
@@ -29,11 +29,7 @@ def nick(message):
     else:
         nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name]=message.reply_to_message.from_user.first_name
 
-
-        
 @bot.message_handler(content_types=['text'])
-
-
 def get_text_messages(message):
     if message.reply_to_message!=None:
         if message.text.lower()[:6] == "обнять":
@@ -181,18 +177,12 @@ def get_text_messages(message):
             nick(message)
             bot.send_message(message.chat.id, "[%s](tg://user?id=%s) погладил [%s](tg://user?id=%s) %s" % (nicks.nicks[message.chat.id][message.from_user.first_name], message.from_user.id, nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name], message.reply_to_message.from_user.id, message.text.lower()[10:]),parse_mode="Markdown")
         elif message.text.lower() == "рп брак":
-            tm=time()
             nick(message)
             love = (message.reply_to_message.from_user.first_name, message.reply_to_message.from_user.id)
             lover = (message.from_user.first_name, message.from_user.id)
             nicks.brak=(love, lover)
             bot.send_message(message.chat.id, "[%s](tg://user?id=%s), минуточку внимания. [%s](tg://user?id=%s) сделал вам предложение руки и сердца. Напишите брак да/нет чтобы принять/отказаться от предложения." % (love[0], love[1], lover[0], love[1]), parse_mode="Markdown")
-            while tm+100>time():
-                get=get_answer(message)
-                if get==1:
-                    break
-            else:
-                bot.send_message(message.chat.id, "К сожалению, время ответа истекло. Попробуйте снова.")
+            
     else:
         if message.text.lower() == "команды":
             bot.send_message(message.chat.id, "Вот список моих команд:\nобнять;\nкусь (alt кусьнуть);\nпоцеловать (alt цом, цмок);\nлизнуть (alt лизь);\nукусить;\nпокормить;\nприжать;\nнапоить (alt споить);\nуложить спать;\nсжечь;\nударить;\nсвязать;\nпрыгнуть;\nвзять;\nсъесть;\nкинуть;\nзапереть;\nшлёпнуть;\nотсосать;\nтрахнуть;\nвыебать;\nотлизать;\nповесить;\nбупнуть (atl boop, смайлы пальцев);\nзаняшить;\nприжаться;\nположить;\nвпитать;\nвылизать;\nрасплавить;\nсесть;\nуебать;\nвъебать;\nвыебать;\nпристрелить;\nнакурить;\nзасосать;\nпогладить;\nскажи число;\nрп ник <ваш ник>;\nники рп.")
@@ -214,15 +204,20 @@ def get_text_messages(message):
             bot.send_message(message.chat.id, "Вот ники участников чата:\n"+("\n".join([f'{i}: {nicks.nicks[message.chat.id][i]}' for i in nicks.nicks[message.chat.id].keys()])))
 
 def get_answer(message):
-    if message.from_user.id == nicks.brak[0][1]:
-        if message.text.lower() == "брак да":
-            brak = (nicks.nicks[message.chat.id][message.from_user.first_name], nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name])
-            nicks.braki.append(brak)
-            bot.send_message(message.chat.id, "Теперь %s и %s состоят в счастливом браке!" % (nicks.nicks[message.chat.id][nicks.brak[1][0]], nicks.nicks[message.chat.id][nicks.brak[0][0]]))
-            return 1
-        elif message.text.lower() == "брак нет":
-            bot.send_message(message.chat.id, "[%s](tg://user?id=%s), сожалеем, но ваши чувства не были взаимны." % (nicks.brak[1][0], nicks.brak[1][1]), parse_mode="Markdown")
-            return 1
-    return 2
+    tm=time()
+    while tm+100>time():
+        if message.from_user.id == nicks.brak[0][1]:
+            if message.text.lower() == "брак да":
+                brak = (nicks.nicks[message.chat.id][message.from_user.first_name], nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name])
+                nicks.braki.append(brak)
+                bot.send_message(message.chat.id, "Теперь %s и %s состоят в счастливом браке!" % (nicks.nicks[message.chat.id][nicks.brak[1][0]], nicks.nicks[message.chat.id][nicks.brak[0][0]]))
+                get = 1
+            elif message.text.lower() == "брак нет":
+               bot.send_message(message.chat.id, "[%s](tg://user?id=%s), сожалеем, но ваши чувства не были взаимны." % (nicks.brak[1][0], nicks.brak[1][1]), parse_mode="Markdown")
+               get = 1
+        if get==1:
+            break
+    else:
+        bot.send_message(message.chat.id, "К сожалению, время ответа истекло. Попробуйте снова.")
 
 bot.polling(none_stop=True, interval=0)
