@@ -4,7 +4,7 @@ import nicks
 from telebot.types import ChatMemberMember, User;
 from telebot import types;
 import random
-bot = telebot.TeleBot('');
+bot = telebot.TeleBot('2071410162:AAEBi0TeppPrzRA8vanFyCCv_V1J7VrK6hE');
 
 def chatnick(message):
     for key in nicks.nicks.keys():
@@ -29,6 +29,9 @@ def nick(message):
     else:
         nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name]=message.reply_to_message.from_user.first_name
 
+
+        
+@bot.message_handler(content_types=['text'])
 def get_answer(message, love, lover):
     if message.from_user.id == love:
         if message.text.lower() == "брак да":
@@ -40,8 +43,7 @@ def get_answer(message, love, lover):
             bot.send_message(message.chat.id, "[%s](tg://user?id=%s), сожалеем, но ваши чувства не были взаимны." % lover, parse_mode="Markdown")
             return 1
     return 2
-        
-@bot.message_handler(content_types=['text'])
+
 def get_text_messages(message):
     if message.reply_to_message!=None:
         if message.text.lower()[:6] == "обнять":
