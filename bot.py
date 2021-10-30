@@ -3,7 +3,7 @@ import nicks
 from telebot.types import ChatMemberMember, User;
 from telebot import types;
 import random
-bot = telebot.TeleBot('2071410162:AAEBi0TeppPrzRA8vanFyCCv_V1J7VrK6hE');
+bot = telebot.TeleBot('');
 
 def chatnick(message):
     for key in nicks.nicks.keys():
