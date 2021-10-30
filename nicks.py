@@ -1,1 +1,3 @@
 nicks={}
+braki=[]
+brak=[]
