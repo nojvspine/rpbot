@@ -4,7 +4,7 @@ import nicks
 from telebot.types import ChatMemberMember, User;
 from telebot import types;
 import random
-bot = telebot.TeleBot('');
+bot = telebot.TeleBot('2071410162:AAEBi0TeppPrzRA8vanFyCCv_V1J7VrK6hE');
 
 def chatnick(message):
     for key in nicks.nicks.keys():
@@ -181,13 +181,13 @@ def get_text_messages(message):
             nick(message)
             bot.send_message(message.chat.id, "[%s](tg://user?id=%s) погладил [%s](tg://user?id=%s) %s" % (nicks.nicks[message.chat.id][message.from_user.first_name], message.from_user.id, nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name], message.reply_to_message.from_user.id, message.text.lower()[10:]),parse_mode="Markdown")
         elif message.text.lower() == "рп брак":
-            tm=time.time()
+            tm=time()
             nick(message)
             love = (message.reply_to_message.from_user.first_name, message.reply_to_message.from_user.id)
             lover = (message.from_user.first_name, message.from_user.id)
             nicks.brak=(love, lover)
             bot.send_message(message.chat.id, "[%s](tg://user?id=%s), минуточку внимания. [%s](tg://user?id=%s) сделал вам предложение руки и сердца. Напишите брак да/нет чтобы принять/отказаться от предложения." % (love, lover), parse_mode="Markdown")
-            while tm+100>time.time():
+            while tm+100>time():
                 get=get_answer(message)
                 if get==1:
                     break
