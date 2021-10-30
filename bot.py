@@ -193,7 +193,7 @@ def get_text_messages(message):
             nick(message)
             love = (message.reply_to_message.from_user.first_name, message.reply_to_message.from_user.id)
             lover = (message.from_user.first_name, message.from_user.id)
-            bot.send_message(message.chat.id, "[%s](tg://user?id=%s), минуточку внимания. [%s](tg://user?id=%s) сделал вам предложение руки и сердца. Напишите брак да/нет чтобы принять/отказаться от предложения." % (love, lover), parse_mode="Markdown")
+            bot.send_message(message.chat.id, "[%s](tg://user?id=%s), минуточку внимания. [%s](tg://user?id=%s) сделал вам предложение руки и сердца. Напишите брак да/нет чтобы принять/отказаться от предложения." % (love[0], love[1], lover[0], lover[1]), parse_mode="Markdown")
             while tm+100>time():
                 get=get_answer(message, love, lover)
                 if get==1:
