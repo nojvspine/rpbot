@@ -4,7 +4,7 @@ import nicks
 from telebot.types import ChatMemberMember, User;
 from telebot import types;
 import random
-bot = telebot.TeleBot('');
+bot = telebot.TeleBot('2071410162:AAEBi0TeppPrzRA8vanFyCCv_V1J7VrK6hE');
 
 def chatnick(message):
     for key in nicks.nicks.keys():
@@ -181,8 +181,10 @@ def get_text_messages(message):
             love = (message.reply_to_message.from_user.first_name, message.reply_to_message.from_user.id)
             lover = (message.from_user.first_name, message.from_user.id)
             nicks.brak=(love, lover)
-            bot.send_message(message.chat.id, "[%s](tg://user?id=%s), минуточку внимания. [%s](tg://user?id=%s) сделал вам предложение руки и сердца. Напишите брак да/нет чтобы принять/отказаться от предложения." % (love[0], love[1], lover[0], love[1]), parse_mode="Markdown")
-            
+            markup = telebot.types.InlineKeyboardMarkup()
+            markup.add(telebot.types.InlineKeyboardButton(text='Да', callback_data=True))
+            markup.add(telebot.types.InlineKeyboardButton(text='Нет', callback_data=False))
+            bot.send_message(message.chat.id, "[%s](tg://user?id=%s), минуточку внимания. [%s](tg://user?id=%s) сделал вам предложение руки и сердца. Нажмите да/нет чтобы принять/отказаться от предложения." % (love[0], love[1], lover[0], love[1]), parse_mode="Markdown")
     else:
         if message.text.lower() == "команды":
             bot.send_message(message.chat.id, "Вот список моих команд:\nобнять;\nкусь (alt кусьнуть);\nпоцеловать (alt цом, цмок);\nлизнуть (alt лизь);\nукусить;\nпокормить;\nприжать;\nнапоить (alt споить);\nуложить спать;\nсжечь;\nударить;\nсвязать;\nпрыгнуть;\nвзять;\nсъесть;\nкинуть;\nзапереть;\nшлёпнуть;\nотсосать;\nтрахнуть;\nвыебать;\nотлизать;\nповесить;\nбупнуть (atl boop, смайлы пальцев);\nзаняшить;\nприжаться;\nположить;\nвпитать;\nвылизать;\nрасплавить;\nсесть;\nуебать;\nвъебать;\nвыебать;\nпристрелить;\nнакурить;\nзасосать;\nпогладить;\nскажи число;\nрп ник <ваш ник>;\nники рп.")
@@ -203,21 +205,22 @@ def get_text_messages(message):
             chatnick(message)
             bot.send_message(message.chat.id, "Вот ники участников чата:\n"+("\n".join([f'{i}: {nicks.nicks[message.chat.id][i]}' for i in nicks.nicks[message.chat.id].keys()])))
 
-def get_answer(message):
+@bot.callback_query_handler(func=lambda call: True)
+def query_handler(call):
     tm=time()
     while tm+100>time():
-        if message.from_user.id == nicks.brak[0][1]:
-            if message.text.lower() == "брак да":
-                brak = (nicks.nicks[message.chat.id][message.from_user.first_name], nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name])
-                nicks.braki.append(brak)
-                bot.send_message(message.chat.id, "Теперь %s и %s состоят в счастливом браке!" % (nicks.nicks[message.chat.id][nicks.brak[1][0]], nicks.nicks[message.chat.id][nicks.brak[0][0]]))
-                get = 1
-            elif message.text.lower() == "брак нет":
-               bot.send_message(message.chat.id, "[%s](tg://user?id=%s), сожалеем, но ваши чувства не были взаимны." % (nicks.brak[1][0], nicks.brak[1][1]), parse_mode="Markdown")
-               get = 1
-        if get==1:
+        if call.data == True:
+            brak = (nicks.nicks[call.message.chat.id][nicks.brak[1][0]], nicks.nicks[call.message.chat.id][nicks.brak[0][0]])
+            nicks.braki.append(brak)
+            bot.send_message(call.message.chat.id, "Теперь %s и %s состоят в счастливом браке!" % (nicks.nicks[call.message.chat.id][nicks.brak[1][0]], nicks.nicks[call.message.chat.id][nicks.brak[0][0]]))
+            bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
+            break
+        elif call.data == '4':
+            bot.send_message(call.message.chat.id, "[%s](tg://user?id=%s), сожалеем, но ваши чувства не были взаимны." % (nicks.brak[1][0], nicks.brak[1][1]), parse_mode="Markdown")
+            bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
             break
     else:
-        bot.send_message(message.chat.id, "К сожалению, время ответа истекло. Попробуйте снова.")
+        bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
+        bot.send_message(call.message.chat.id, "К сожалению, время ответа истекло. Попробуйте снова.")
 
 bot.polling(none_stop=True, interval=0)
