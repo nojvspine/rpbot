@@ -4,7 +4,7 @@ import nicks
 from telebot.types import ChatMemberMember, User;
 from telebot import types;
 import random
-bot = telebot.TeleBot('');
+bot = telebot.TeleBot('2071410162:AAEBi0TeppPrzRA8vanFyCCv_V1J7VrK6hE');
 
 def chatnick(message):
     for key in nicks.nicks.keys():
@@ -196,6 +196,7 @@ def get_text_messages(message):
             chatnick(message)
             bot.send_message(message.chat.id, "Вот ники участников чата:\n"+("\n".join([f'{i}: {nicks.nicks[message.chat.id][i]}' for i in nicks.nicks[message.chat.id].keys()])))
 
+@bot.message_handler(content_types=['text'])
 def brak(message):
     if message.text.lower() == "рп брак":
         nick(message)
