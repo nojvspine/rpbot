@@ -4,7 +4,7 @@ import nicks
 from telebot.types import ChatMemberMember, User;
 from telebot import types;
 import random
-bot = telebot.TeleBot('');
+bot = telebot.TeleBot('2071410162:AAEBi0TeppPrzRA8vanFyCCv_V1J7VrK6hE');
 
 def chatnick(message):
     for key in nicks.nicks.keys():
@@ -176,15 +176,6 @@ def get_text_messages(message):
         elif message.text.lower()[:9] == "погладить":
             nick(message)
             bot.send_message(message.chat.id, "[%s](tg://user?id=%s) погладил [%s](tg://user?id=%s) %s" % (nicks.nicks[message.chat.id][message.from_user.first_name], message.from_user.id, nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name], message.reply_to_message.from_user.id, message.text.lower()[10:]),parse_mode="Markdown")
-        elif message.text.lower() == "рп брак":
-            nick(message)
-            love = (message.reply_to_message.from_user.first_name, message.reply_to_message.from_user.id)
-            lover = (message.from_user.first_name, message.from_user.id)
-            nicks.brak=(love, lover)
-            markup = telebot.types.InlineKeyboardMarkup()
-            markup.add(telebot.types.InlineKeyboardButton(text='Да', callback_data=1))
-            markup.add(telebot.types.InlineKeyboardButton(text='Нет', callback_data=0))
-            bot.send_message(message.chat.id, "[%s](tg://user?id=%s), минуточку внимания. [%s](tg://user?id=%s) сделал вам предложение руки и сердца. Нажмите да/нет чтобы принять/отказаться от предложения." % (love[0], love[1], lover[0], love[1]), parse_mode="Markdown", reply_markup=markup)
     else:
         if message.text.lower() == "команды":
             bot.send_message(message.chat.id, "Вот список моих команд:\nобнять;\nкусь (alt кусьнуть);\nпоцеловать (alt цом, цмок);\nлизнуть (alt лизь);\nукусить;\nпокормить;\nприжать;\nнапоить (alt споить);\nуложить спать;\nсжечь;\nударить;\nсвязать;\nпрыгнуть;\nвзять;\nсъесть;\nкинуть;\nзапереть;\nшлёпнуть;\nотсосать;\nтрахнуть;\nвыебать;\nотлизать;\nповесить;\nбупнуть (atl boop, смайлы пальцев);\nзаняшить;\nприжаться;\nположить;\nвпитать;\nвылизать;\nрасплавить;\nсесть;\nуебать;\nвъебать;\nвыебать;\nпристрелить;\nнакурить;\nзасосать;\nпогладить;\nскажи число;\nрп ник <ваш ник>;\nники рп.")
@@ -205,6 +196,17 @@ def get_text_messages(message):
             chatnick(message)
             bot.send_message(message.chat.id, "Вот ники участников чата:\n"+("\n".join([f'{i}: {nicks.nicks[message.chat.id][i]}' for i in nicks.nicks[message.chat.id].keys()])))
 
+def brak(message):
+    if message.text.lower() == "рп брак":
+        nick(message)
+        love = (message.reply_to_message.from_user.first_name, message.reply_to_message.from_user.id)
+        lover = (message.from_user.first_name, message.from_user.id)
+        nicks.brak=(love, lover)
+        markup = telebot.types.InlineKeyboardMarkup()
+        markup.add(telebot.types.InlineKeyboardButton(text='Да', callback_data=True))
+        markup.add(telebot.types.InlineKeyboardButton(text='Нет', callback_data=False))
+        bot.send_message(message.chat.id, "[%s](tg://user?id=%s), минуточку внимания. [%s](tg://user?id=%s) сделал вам предложение руки и сердца. Нажмите да/нет чтобы принять/отказаться от предложения." % (love[0], love[1], lover[0], love[1]), parse_mode="Markdown")
+            
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
     tm=time()
