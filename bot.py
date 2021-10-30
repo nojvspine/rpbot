@@ -4,7 +4,7 @@ import nicks
 from telebot.types import ChatMemberMember, User;
 from telebot import types;
 import random
-bot = telebot.TeleBot('');
+bot = telebot.TeleBot('2071410162:AAEBi0TeppPrzRA8vanFyCCv_V1J7VrK6hE');
 
 def chatnick(message):
     for key in nicks.nicks.keys():
@@ -32,17 +32,7 @@ def nick(message):
 
         
 @bot.message_handler(content_types=['text'])
-def get_answer(message, love, lover):
-    if message.from_user.id == love:
-        if message.text.lower() == "брак да":
-            brak = (nicks.nicks[message.chat.id][message.from_user.first_name], nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name])
-            nicks.braki.append(brak)
-            bot.send_message(message.chat.id, "Теперь %s и %s состоят в счастливом браке!" % (nicks.nicks[message.chat.id][message.from_user.first_name], nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name]))
-            return 1
-        elif message.text.lower() == "брак нет":
-            bot.send_message(message.chat.id, "[%s](tg://user?id=%s), сожалеем, но ваши чувства не были взаимны." % lover, parse_mode="Markdown")
-            return 1
-    return 2
+
 
 def get_text_messages(message):
     if message.reply_to_message!=None:
@@ -219,5 +209,17 @@ def get_text_messages(message):
         elif message.text.lower() == "ники рп":
             chatnick(message)
             bot.send_message(message.chat.id, "Вот ники участников чата:\n"+("\n".join([f'{i}: {nicks.nicks[message.chat.id][i]}' for i in nicks.nicks[message.chat.id].keys()])))
+
+def get_answer(message, love, lover):
+    if message.from_user.id == love:
+        if message.text.lower() == "брак да":
+            brak = (nicks.nicks[message.chat.id][message.from_user.first_name], nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name])
+            nicks.braki.append(brak)
+            bot.send_message(message.chat.id, "Теперь %s и %s состоят в счастливом браке!" % (nicks.nicks[message.chat.id][message.from_user.first_name], nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name]))
+            return 1
+        elif message.text.lower() == "брак нет":
+            bot.send_message(message.chat.id, "[%s](tg://user?id=%s), сожалеем, но ваши чувства не были взаимны." % lover, parse_mode="Markdown")
+            return 1
+    return 2
 
 bot.polling(none_stop=True, interval=0)
