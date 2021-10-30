@@ -1,9 +1,10 @@
 import telebot
+from time import time
 import nicks
 from telebot.types import ChatMemberMember, User;
 from telebot import types;
 import random
-bot = telebot.TeleBot('');
+bot = telebot.TeleBot('2071410162:AAEBi0TeppPrzRA8vanFyCCv_V1J7VrK6hE');
 
 def chatnick(message):
     for key in nicks.nicks.keys():
@@ -28,6 +29,18 @@ def nick(message):
     else:
         nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name]=message.reply_to_message.from_user.first_name
 
+def get_answer(message, love, lover):
+    if message.from_user.id == love:
+        if message.text.lower() == "брак да":
+            brak = (nicks.nicks[message.chat.id][message.from_user.first_name], nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name])
+            nicks.braki.append(brak)
+            bot.send_message(message.chat.id, "Теперь %s и %s состоят в счастливом браке!" % (nicks.nicks[message.chat.id][message.from_user.first_name], nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name]))
+            return 1
+        elif message.text.lower() == "брак нет":
+            bot.send_message(message.chat.id, "[%s](tg://user?id=%s), сожалеем, но ваши чувства не были взаимны." % lover, parse_mode="Markdown")
+            return 1
+    return 2
+        
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
     if message.reply_to_message!=None:
@@ -175,6 +188,16 @@ def get_text_messages(message):
         elif message.text.lower()[:9] == "погладить":
             nick(message)
             bot.send_message(message.chat.id, "[%s](tg://user?id=%s) погладил [%s](tg://user?id=%s) %s" % (nicks.nicks[message.chat.id][message.from_user.first_name], message.from_user.id, nicks.nicks[message.chat.id][message.reply_to_message.from_user.first_name], message.reply_to_message.from_user.id, message.text.lower()[10:]),parse_mode="Markdown")
+        elif message.text.lower() == "рп брак":
+            tm=time.time()
+            nick(message)
+            love = (message.reply_to_message.from_user.first_name, message.reply_to_message.from_user.id)
+            lover = (message.from_user.first_name, message.from_user.id)
+            bot.send_message(message.chat.id, "[%s](tg://user?id=%s), минуточку внимания. [%s](tg://user?id=%s) сделал вам предложение руки и сердца. Напишите брак да/нет чтобы принять/отказаться от предложения." % (love, lover), parse_mode="Markdown")
+            while tm+100>time.time():
+                get=get_answer(message, love, lover)
+                if get==1:
+                    break
     else:
         if message.text.lower() == "команды":
             bot.send_message(message.chat.id, "Вот список моих команд:\nобнять;\nкусь (alt кусьнуть);\nпоцеловать (alt цом, цмок);\nлизнуть (alt лизь);\nукусить;\nпокормить;\nприжать;\nнапоить (alt споить);\nуложить спать;\nсжечь;\nударить;\nсвязать;\nпрыгнуть;\nвзять;\nсъесть;\nкинуть;\nзапереть;\nшлёпнуть;\nотсосать;\nтрахнуть;\nвыебать;\nотлизать;\nповесить;\nбупнуть (atl boop, смайлы пальцев);\nзаняшить;\nприжаться;\nположить;\nвпитать;\nвылизать;\nрасплавить;\nсесть;\nуебать;\nвъебать;\nвыебать;\nпристрелить;\nнакурить;\nзасосать;\nпогладить;\nскажи число;\nрп ник <ваш ник>;\nники рп.")
