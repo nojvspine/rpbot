@@ -1,7 +1,7 @@
 from telebot import *
 from random import randint
 
-bot = TeleBot('');
+bot = TeleBot('2071410162:AAEBi0TeppPrzRA8vanFyCCv_V1J7VrK6hE');
 
 def loadnicks(filename):
     with open(filename, 'r') as s:
@@ -197,7 +197,7 @@ def get_text_messages(message):
                 bot.send_message(message.chat.id, "Используй *команды* чтобы узнать список команд.")
             elif message.text.lower() == "скажи число":
                 n = randint(0, 100)
-                bot.send_message(message.chat.id, "Вот моё число: ",n)
+                bot.send_message(message.chat.id, "Вот моё число: %d" % n)
             elif message.text[:6] == "рп ник" or message.text[:6] == "Рп ник":
                 if message.text[6:]==' ' or message.text[6:]=='':
                     bot.send_message(message.chat.id, "Вы не ввели ник!")
