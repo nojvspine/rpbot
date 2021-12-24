@@ -1,6 +1,6 @@
 from telebot import *
 
-bot = TeleBot('');
+bot = TeleBot('2071410162:AAEBi0TeppPrzRA8vanFyCCv_V1J7VrK6hE');
 
 def loadnicks(filename):
     with open(filename, 'r') as s:
@@ -33,3 +33,5 @@ def get_text_messages(message):
             nicksearch(message)
             if message.text.lower()[:6] == "обнять":
                 bot.send_message(message.chat.id, "[%s](tg://user?id=%s) обнял [%s](tg://user?id=%s) %s" % (nicks[message.chat.id][message.from_user.first_name], message.from_user.id, nicks[message.chat.id][message.reply_to_message.from_user.first_name], message.reply_to_message.from_user.id, message.text.lower()[7:]),parse_mode="Markdown")
+
+bot.polling(none_stop=True, interval=0)
