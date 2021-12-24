@@ -1,6 +1,6 @@
 from telebot import *
 
-bot = TeleBot('2071410162:AAEBi0TeppPrzRA8vanFyCCv_V1J7VrK6hE');
+bot = TeleBot('');
 
 def loadnicks(filename):
     with open(filename, 'r') as s:
