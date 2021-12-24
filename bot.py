@@ -1,6 +1,6 @@
 from telebot import *
 
-bot = TeleBot('');
+bot = TeleBot('2071410162:AAEBi0TeppPrzRA8vanFyCCv_V1J7VrK6hE');
 
 def loadnicks(filename):
     with open(filename, 'r') as s:
@@ -20,12 +20,22 @@ def nicksearch(message):
         else:
             n[message.chat.id][message.from_user.first_name] = message.from_user.first_name
             savenicks('nicks.txt', n)
+        if message.reply_to_message.from_user.first_name in n[message.chat.id].keys():
+            savenicks('nicks.txt', n)
+        else:
+            n[message.chat.id][message.reply_to_message.from_user.first_name] = message.reply_to_message.from_user.first_name
+            savenicks('nicks.txt', n)
     else:
         n[message.chat.id] = {}
         if message.from_user.first_name in n[message.chat.id].keys():
             savenicks('nicks.txt', n)
         else:
             n[message.chat.id][message.from_user.first_name] = message.from_user.first_name
+            savenicks('nicks.txt', n)
+        if message.reply_to_message.from_user.first_name in n[message.chat.id].keys():
+            savenicks('nicks.txt', n)
+        else:
+            n[message.chat.id][message.reply_to_message.from_user.first_name] = message.reply_to_message.from_user.first_name
             savenicks('nicks.txt', n)
 
 @bot.message_handler(content_types=['text'])
