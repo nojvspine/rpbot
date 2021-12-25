@@ -43,8 +43,8 @@ def nicksearch(message):
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
+    nicksearch(message)
     if message.reply_to_message!=None:
-        nicksearch(message)
         with open('nicks.txt', 'r') as s:
             nicks = eval(s.read())
             if message.text.lower()[:6] == "обнять":
@@ -204,7 +204,6 @@ def get_text_messages(message):
                 if message.text[6:]==' ' or message.text[6:]=='':
                     bot.send_message(message.chat.id, "Вы не ввели ник!")
                 else:
-                    nicksearch(message)
                     n={message.from_user.first_name: message.text[7:]}
                     nicks[message.chat.id].update(n)
                     savenicks('nicks.txt', nicks)
