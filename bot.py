@@ -1,7 +1,7 @@
 from telebot import *
 from random import randint
 
-bot = TeleBot('2071410162:AAEBi0TeppPrzRA8vanFyCCv_V1J7VrK6hE');
+bot = TeleBot('');
 
 rps = ['обнять', 'кусь', 'кусьнуть', 'поцеловать', 'цом', 'цмок', 'лизь', 'лизнуть', 'укусить', 
     'покормить', 'прижаться', 'прижать', 'напоить', 'споить', 'уложить', 'сжечь', 'ударить',
