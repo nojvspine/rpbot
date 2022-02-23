@@ -1,7 +1,7 @@
 from telebot import *
 from random import randint
 
-bot = TeleBot('');
+bot = TeleBot('2071410162:AAEBi0TeppPrzRA8vanFyCCv_V1J7VrK6hE');
 
 rps = ['обнять', 'кусь', 'кусьнуть', 'поцеловать', 'цом', 'цмок', 'лизь', 'лизнуть', 'укусить', 
     'покормить', 'прижаться', 'прижать', 'напоить', 'споить', 'уложить', 'сжечь', 'ударить',
@@ -26,7 +26,7 @@ def get_text_messages(message):
         try:
             n = message.text.lower().index(' ')
             s = message.text.lower()[:n]
-            bot.send_message(message.chat.id, f"[{message.from_user.first_name}](tg://user?id={message.from_user.id}) {rpreplys[s]} [{message.reply_to_message.from_user.first_name}](tg://user?id={message.reply_to_message.from_user.id}) {message.text.lower()[(n+1):]}", parse_mode='Markdown')
+            bot.send_message(message.chat.id, f"[{message.from_user.first_name}](tg://user?id={message.from_user.id}) {rpreplys[s]} [{message.reply_to_message.from_user.first_name}](tg://user?id={message.reply_to_message.from_user.id}) {message.text.lower()[n+1:]}", parse_mode='Markdown')
         except(Exception):
             try:
                 n = message.text.lower().index('\n')
